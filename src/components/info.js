@@ -28,6 +28,7 @@ function Info(){
             <h4>Info</h4>
             <p>id: {id}</p>
             <p>ti: {ti}</p>
+            <p>nowId: {nowId}</p>
             <p>name: {listInfo.name}</p>
             <p>age: {listInfo.age}</p>
             <p>address: {listInfo.address}</p>
@@ -47,4 +48,4 @@ function useChangeTest(inId){
     return id;
 }
 
-export default Info
+export default Info;
