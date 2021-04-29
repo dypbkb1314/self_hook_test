@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
 import {createStore} from 'redux';
@@ -8,6 +8,8 @@ import 'antd/dist/antd.css'
 import reducer from './reducer';
 import Router from './router';
 import { BrowserRouter } from 'react-router-dom';
+import 'antd-mobile/dist/antd-mobile';
+// import './components/login'
 const store = createStore(reducer)
 // import reportWebVitals from './reportWebVitals';
 
@@ -18,14 +20,16 @@ const htk = {
   age: 18,
   love: 'book'
 }
-ReactDOM.render(
+ReactDOM.hydrate(
   <React.StrictMode>
     <Provider store={store}>
       <UseContext.Provider value={htk}>
         {/* <Router /> */}
-        <BrowserRouter>
-          {renderRoutes(Router)}
-        </BrowserRouter>
+        <Suspense fallback={<p>loading......</p>}>
+          <BrowserRouter>
+            {renderRoutes(Router)}
+          </BrowserRouter>
+        </Suspense>
       </UseContext.Provider>
     </Provider>
   </React.StrictMode>,

@@ -5,9 +5,12 @@ import { useSelector, useDispatch, useStore } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { UseContext } from './index';
 import './test.css';
-import Selef from './self'
+import Selef from './self';
+import PropTypes from 'prop-types';
+import api from './api'
 
 function App() {
+    console.log('change')
     const history = useHistory();
     const dispatch = useDispatch()
     const store =useStore()
@@ -27,7 +30,8 @@ function App() {
         if (idFromBtnClick === 2) {
             async function getApi() {
                 try {
-                    const res = await axios.post(`https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7/user/api/self`);
+                    const res = await api.getApi();
+                    console.log(res)
                     setPost(res.data)
                 } catch (e) {
                     console.log(e)
@@ -37,8 +41,8 @@ function App() {
         } else if (idFromBtnClick === 3) {
             async function getApiMd() {
                 try {
-                    const res = await axios.get(`https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7/user/api/self/${idFromBtnClick}`);
-                    setGet(res.data)
+                    const res = await api.getApiMd(idFromBtnClick);
+                    setGet(res)
                 } catch (e) {
                     console.log(e)
                 }
@@ -150,7 +154,13 @@ function useHandleName(initName) {
     }
 }
 
-export default App;
+// App.PropTypes = {
+//     selfDataGet: PropTypes.string.isRequired,
+// }
+
+let ShowApp = React.memo(App)
+
+export default ShowApp;
 
 
 
