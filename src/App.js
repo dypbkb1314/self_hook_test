@@ -6,12 +6,11 @@ import { useHistory } from 'react-router-dom'
 import { UseContext } from './index';
 import './test.css';
 import Selef from './self';
-import PropTypes from 'prop-types';
 import api from './api'
 
 function App() {
-    console.log('change')
     const history = useHistory();
+    console.log(history)
     const dispatch = useDispatch()
     const store =useStore()
     console.log(store.getState())
@@ -53,8 +52,8 @@ function App() {
 
     async function getList(){
         try{
-            const data = await axios.get('/api/list');
-            setNodeList(data.data)
+            const data = await axios.get('http://localhost:8888/name');
+            // setNodeList(data.data)
         }catch(e){
             console.log(e)
         }

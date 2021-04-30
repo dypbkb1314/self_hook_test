@@ -1,34 +1,41 @@
-import React from 'react'
-import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
+import React,{useState} from 'react';
+import { useHistory } from 'react-router-dom';
 
-class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        //绑定this时间，如果不绑定，无法传递this
-        this.register = this.register.bind(this);
+function Login (){
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const history = useHistory();
+
+    const handleChangeUserName = (e) =>{
+        setUsername(e.target.value)
     }
-    register() {
-        console.log(this.props);
-        //跳转到注册页面
-        this.props.history.push('/register')
+    const handleChangePassWord = (e) =>{
+        setPassword(e.target.value)
     }
-    render() {
-        return (
+
+    const handleLogin =() =>{
+        if(username === 'harry' && password === '999'){
+            localStorage.setItem('loginStatus',JSON.stringify({username, password}));
+            history.push('/home');
+        }else{
+            alert('用户名/密码错误');
+            setUsername('');
+            setPassword('');
+        }
+    }
+
+    return(
+        <div>
             <div>
-                <h2>我是登录页</h2>
-                <WingBlank>
-                    <List>
-                        <InputItem>用户名</InputItem>
-                        <InputItem type="password">密码</InputItem>
-                    </List>
-                    <WhiteSpace />
-                    <Button type="primary">登录</Button>
-                    <WhiteSpace />
-                    <Button onClick={this.register} type="primary">注册</Button>
-                </WingBlank>
+                username: <input type="text" onChange={handleChangeUserName} />
             </div>
-        )
-    }
+            <div>
+                password: <input type="text" onChange={handleChangePassWord} />
+            </div>
+            <button onClick={handleLogin}>login</button>
+        </div>
+    )
 }
 
-export default Login
+export default Login;

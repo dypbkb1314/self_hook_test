@@ -18,6 +18,9 @@ async function getApiMd(idFromBtnClick) {
     }
 }
 
-export default {
-    getApi,getApiMd
+const apiList ={
+    getApi,
+    getApiMd,
 }
+
+export default apiList;
