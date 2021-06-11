@@ -19,19 +19,19 @@ function Login (){
             localStorage.setItem('loginStatus',JSON.stringify({username, password}));
             history.push('/home');
         }else{
-            alert('用户名/密码错误');
             setUsername('');
             setPassword('');
+            alert('用户名/密码错误');
         }
     }
 
     return(
         <div>
             <div>
-                username: <input type="text" onChange={handleChangeUserName} />
+                username: <input type="text" onChange={handleChangeUserName} value={username} />
             </div>
             <div>
-                password: <input type="text" onChange={handleChangePassWord} />
+                password: <input type="password" onChange={handleChangePassWord} value={password} />
             </div>
             <button onClick={handleLogin}>login</button>
         </div>

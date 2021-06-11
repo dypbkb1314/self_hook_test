@@ -1,5 +1,17 @@
 import axios from 'axios';
 
+axios.interceptors.request.use(function(config){
+    return config;
+}, function(err){
+    return Promise.reject(err)
+})
+
+axios.interceptors.response.use(function(config){
+    return config
+}, function(err){
+    return Promise.reject(err)
+})
+
 
 async function getApi() {
     try {
@@ -18,9 +30,20 @@ async function getApiMd(idFromBtnClick) {
     }
 }
 
+async function testproxy(){
+    try{
+        const res = await axios.get('/_api/name');
+        return res;
+    }catch(e){
+        console.log(e)
+    }
+}
+
+
 const apiList ={
     getApi,
     getApiMd,
+    testproxy,
 }
 
 export default apiList;

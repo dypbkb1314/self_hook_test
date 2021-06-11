@@ -28,7 +28,7 @@ function List() {
     const history = useHistory();
 
     function goInfo(props){
-        history.push(`/info/${props}`)
+        history.push(`/info?id=${props}`)
     }
     function goHome(){
         history.push('/')

@@ -15,6 +15,8 @@ import Home from '../App'
 import Calculator from '../components/templure'
 import ThemeTest from '../components/theme-app'
 import Login from '../components/index'
+import MousePage from '../components/mousepage'
+import BgTest from '../components/bg-test'
 
 const NotFound = () => {
     return (
@@ -44,7 +46,7 @@ const RouterConfig = [
         auth: true
     },
     {
-        path: '/info/:id',
+        path: '/info',
         component: Info,
         auth: true
     },
@@ -57,6 +59,17 @@ const RouterConfig = [
         path: '/templure',
         component: Calculator,
         auth: true
+    },
+    {
+        path: '/mousemove',
+        component: MousePage,
+        auth: false
+    }
+    ,
+    {
+        path: '/bg-test',
+        component: BgTest,
+        auth: false
     },
     {
         path: "/404",

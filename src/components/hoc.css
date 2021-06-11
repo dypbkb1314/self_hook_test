@@ -1,0 +1,21 @@
+.hoc_green {
+    background-color: turquoise;
+}
+
+.container-1 {
+    height: 100vh;
+    background-image: url(../assets/img1.jpg);
+    background-attachment: fixed;
+}
+
+.container-2 {
+    height: 300px;
+    background-image: url(../assets/img2.jpg);
+    background-attachment: fixed;
+}
+
+.container-3 {
+    height: 300px;
+    background-image: url(../assets/img3.jpg);
+    background-attachment: fixed;
+}

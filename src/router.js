@@ -14,6 +14,7 @@ const Home = lazy(()=>import('./App'));
 const Calculator = lazy(()=>import('./components/templure'));
 const ThemeTest =lazy(()=>import('./components/theme-app'));
 const FirstHome = lazy(() => import('./components/index'))
+const BgTest = lazy(() => import('./components/bg-test'))
 
 const routes = [
     {
@@ -51,6 +52,11 @@ const routes = [
         path: '/templure',
         component: Calculator,
         exact: true
+    },
+    {
+        path: '/bg-test',
+        component: BgTest,
+        exact: false
     }
 ]
 
