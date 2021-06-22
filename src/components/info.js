@@ -45,7 +45,14 @@ function Info() {
                     </div>
                 }
                 name="info refs"
-            />
+            >
+                <ul>
+                    <li>难以释怀</li>
+                    <li>难以释怀</li>
+                    <li>难以释怀</li>
+                    <li>难以释怀</li>
+                </ul>
+            </Hoc>
         </div>
     )
 }
@@ -53,7 +60,6 @@ function Info() {
 function useChangeTest(inId) {
     const [id, setId] = useState();
     useEffect(() => {
-        console.log('effect')
         setId(inId)
         return () => { }
     }, [inId])

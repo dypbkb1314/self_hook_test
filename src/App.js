@@ -14,7 +14,6 @@ function App() {
     console.log(history)
     const dispatch = useDispatch()
     const store =useStore()
-    console.log(store.getState())
     let dared = useSelector(state => state.count)
     const name = useHandleName('Harry');
     const surname = useHandleName('Potter');
@@ -65,7 +64,6 @@ function App() {
     }, [idFromBtnClick])
 
     async function getList(){
-        console.log(111)
         try{
             await axios.get('/_api/name');
         }catch(e){

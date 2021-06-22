@@ -8,7 +8,7 @@ import './index.css';
 import 'antd/dist/antd.css'
 import reducer from './reducer';
 import AuthRouter from './auth/FrontendAuth';
-import { BrowserRouter, Switch, HashRouter } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import 'antd-mobile/dist/antd-mobile';
 import './setProxy'
 const store = createStore(reducer)
@@ -34,13 +34,13 @@ renderFuc(
       {/* <UseContext.Provider value={htk}> */}
       {/* <Router /> */}
       <Suspense fallback={<p>loading......</p>}>
-      <HashRouter>
+      <BrowserRouter>
         {/* {renderRoutes(Router)} */}
         {/* <TextRouter/> */}
         <Switch>
           <AuthRouter />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
       </Suspense>
       {/* </UseContext.Provider> */}
     </Provider>

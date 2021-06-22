@@ -9,6 +9,7 @@ export default function Hoc(props) {
             {props.first}
             <h3>this is twice part</h3>
             {props.twice}
+            {props.children}
         </div>
     )
 }
