@@ -16,8 +16,8 @@ export default class MouseTracker extends React.Component {
       });
     }
 
-    componentDidMount() {
-        html2canvas(document.body, {
+    adf() {
+        html2canvas(document.getElementById('kl'), {
             allowTaint: false,
             useCORS: true,
         }).then(function (canvas) {
@@ -34,7 +34,8 @@ export default class MouseTracker extends React.Component {
     render() {
       return (
         <div style={{ height: '100vh' }} onMouseMove={this.handleMouseMove}>
-          <h1>移动鼠标!</h1>
+          <h1 id="kl">移动鼠标!</h1>
+          <button onClick={() => this.adf()}>pic</button>
           <p>当前的鼠标位置是 ({this.state.x}, {this.state.y})</p>
           <div className="box"></div>
         </div>

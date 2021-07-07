@@ -29,6 +29,8 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const postcssNormalize = require('postcss-normalize');
 
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
 const appPackageJson = require(paths.appPackageJson);
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -557,6 +559,10 @@ module.exports = function (webpackEnv) {
       ],
     },
     plugins: [
+      new BundleAnalyzerPlugin({
+        analyzerPort: 8889, // 指定端口号
+        openAnalyzer: false,
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(

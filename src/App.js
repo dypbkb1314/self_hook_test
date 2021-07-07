@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
-import { useSelector, useDispatch, useStore } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { UseContext } from './index';
@@ -13,7 +13,6 @@ function App() {
     const history = useHistory();
     console.log(history)
     const dispatch = useDispatch()
-    const store =useStore()
     let dared = useSelector(state => state.count)
     const name = useHandleName('Harry');
     const surname = useHandleName('Potter');
@@ -152,6 +151,8 @@ function App() {
             <button onClick={getList}>get List btn</button>
             <button onClick={() => history.push('/antdTest')}>got antd</button>
             <button onClick={() => history.push('/templure')}>go templure</button>
+            <button onClick={() => history.push('/todolist')}>go todolist</button>
+            <button onClick={() => history.push('/router_test')}>go routerTest</button>
         </div>
     )
 }

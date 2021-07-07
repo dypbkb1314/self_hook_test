@@ -19,3 +19,20 @@
     background-image: url(../assets/img3.jpg);
     background-attachment: fixed;
 }
+
+.done {
+    text-decoration: line-through;
+}
+
+.active {
+    text-decoration: unset;
+}
+
+.word_up {
+    text-transform: capitalize;
+}
+
+.t_flex {
+    display: flex;
+    align-items: center;
+}
