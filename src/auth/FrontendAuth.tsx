@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
 import ReactConfig from './RouterConfig';
 
+
 function AuthRouter() {
   const history = useHistory();
   const pathname = history.location.pathname;
@@ -12,7 +13,9 @@ function AuthRouter() {
   if (pathname === "/") {
     return <Redirect to="login"></Redirect>;
   }
-  const isLogin = JSON.parse(localStorage.getItem('loginStatus'));
+
+  const stroageItem:any = localStorage.getItem('loginStatus');
+  const isLogin = JSON.parse(stroageItem);
 
   if (!targetPathName) {
     return <Redirect to='404' />

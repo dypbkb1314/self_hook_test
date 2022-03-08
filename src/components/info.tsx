@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useMemo, useCallback } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { useStore, useSelector } from 'react-redux';
 import Hoc from './hoc'
@@ -8,20 +8,28 @@ const listInfo = {
     age: 18,
     address: 'rty,ddfd,123'
 }
+interface selfState{
+    count: number
+}
+interface selfParams{
+    id: string
+}
 
 function Info() {
     const [ti, changeTi] = useState(2)
+    const [td, changeTd] = useState(2)
     const nowId = useChangeTest(2)
     const store = useStore()
-    const data = useSelector(state => state.count)
-    console.log(store.getState(), data)
-    const { id } = useParams();
-    const history = useHistory();
+    const data = useSelector((state:selfState) => state.count)
+    // const { id } = useParams<selfParams>();
+    // const ij = useParams<selfParams>();
+    const history:any = useHistory();
+    const id = history && history.location && history.location.state.id;
+    const  testMemo = useCallback(() => goBack(), [ti])
     function goBack() {
         history.push('/list')
     }
     useEffect(() => {
-        console.log(ti)
         return () => { }
     }, [ti])
     return (
@@ -32,6 +40,7 @@ function Info() {
                         <h4>Info</h4>
                         <p>id: {id}</p>
                         <p>ti: {ti}</p>
+                        <p>td: {td}</p>
                         <p>nowId: {nowId}</p>
                         <p>name: {listInfo.name}</p>
                         <p>age: {listInfo.age}</p>
@@ -40,8 +49,9 @@ function Info() {
                 }
                 twice={
                     <div>
-                        <button onClick={goBack}>go back</button>
+                        <button onClick={testMemo}>go back</button>
                         <button onClick={() => changeTi(ti + 1)}>test effect</button>
+                        <button onClick={() => changeTd(td + 1)}>test effect td</button>
                     </div>
                 }
                 name="info refs"
@@ -57,13 +67,8 @@ function Info() {
     )
 }
 
-function useChangeTest(inId) {
-    const [id, setId] = useState();
-    useEffect(() => {
-        setId(inId)
-        return () => { }
-    }, [inId])
-    return id;
+function useChangeTest(inId:number) {
+    return inId;
 }
 
 export default Info;

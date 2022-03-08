@@ -21,7 +21,7 @@ async function getApi() {
         console.log(e)
     }
 }
-async function getApiMd(idFromBtnClick) {
+async function getApiMd(idFromBtnClick:number) {
     try {
         const res = await axios.get(`https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7/user/api/self/${idFromBtnClick}`);
         return res.data

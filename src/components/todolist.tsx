@@ -2,12 +2,24 @@ import React, {useState, useEffect} from 'react'
 import { useDispatch, useStore, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
+interface ActType{
+    done?: boolean,
+    val: string
+}
+
+interface ArrayList{}
+
+interface RootState{
+    list?: [{done:boolean, val: string}],
+    showStatus?: string
+}
+
 export default function Todolist() {
     const [val, setVal] = useState('')
-    const [valList, setValList] = useState([])
+    const [valList, setValList] = useState<ActType[]>([])
     const dispatch = useDispatch();
-    let list = useSelector(state => state.list)
-    const status = useSelector(state => state.showStatus)
+    let list = useSelector((state :RootState) => state.list) || []
+    const status = useSelector((state:RootState) => state.showStatus)
     const alldata = useStore()
     const history = useHistory()
     let showList =  []
@@ -25,16 +37,16 @@ export default function Todolist() {
         setValList([...arr]);
     }
 
-    function changeStatus(index){
+    function changeStatus(index: number){
         valList[index].done = !valList[index].done
         setValList([...valList])
         dispatch({type: 'CHANGESTATUS', id: index})
     }
 
-    function ckn(data) {
+    function ckn(data:any) {
         console.log('test1', data)
     }
-    function ckm(data) {
+    function ckm(data:number) {
         console.log('test2', data)
     }
 

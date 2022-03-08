@@ -27,8 +27,13 @@ const list = [
 function List() {
     const history = useHistory();
 
-    function goInfo(props){
-        history.push(`/info?id=${props}`)
+    function goInfo(props:number){
+        history.push({
+            pathname: '/info',
+            state:{
+                id: props
+            }
+        })
     }
     function goHome(){
         history.push('/')

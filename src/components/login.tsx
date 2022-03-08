@@ -3,8 +3,12 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
 //进行判断是否登陆并进行路由跳转
-@withRouter
-class AuthRoute extends React.Component {
+interface Myprops{
+    location: {pathname: string},
+    history: [val: string]
+}
+
+class AuthRoute extends React.Component<any> {
     componentDidMount() {
         const publicList = ['/login', '/register']
         const pathname = this.props.location.pathname
@@ -32,4 +36,6 @@ class AuthRoute extends React.Component {
         return null
     }
 }
-export default AuthRoute
+
+const Testy = withRouter(AuthRoute)
+export default Testy;

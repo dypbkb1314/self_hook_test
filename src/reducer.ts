@@ -1,11 +1,36 @@
-const initState = {
+/*
+ * @Author: your name
+ * @Date: 2021-06-29 17:56:19
+ * @LastEditTime: 2022-01-21 14:22:54
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: /reactht/src/reducer.ts
+ */
+const initState:selfState = {
     count: 2,
     name: 'tyu',
     list: [],
-    showStatus: 'ALL'
+    showStatus: 'ALL',
 }
-const Todo = (state = initState, action) => {
-    console.log(state)
+const initAction:selfAction = {
+    type: 'ADD',
+    value: '2',
+    list: [],
+    id: 3
+}
+export interface selfState {
+    count: number,
+    name: string,
+    list: any,
+    showStatus: string
+}
+export interface selfAction {
+    type: string,
+    value: string,
+    list: any,
+    id: number
+}
+function self_reducer(state:any = initState, action:any = initAction){
     switch (action.type) {
         case "ADD":
             return {
@@ -15,10 +40,9 @@ const Todo = (state = initState, action) => {
         case "CHANGE":
             return {
                 ...state,
-                name: 'now change'
+                name: action.value
             }
         case "ADDLIST":
-            const list = [...state.list, action.list||{}];
             return {
                 ...state,
                 list: [...state.list, action.list]
@@ -40,14 +64,14 @@ const Todo = (state = initState, action) => {
             }
         case "CHANGESTATUS":
             const arr = state.list;
-            arr[action.id].done = !arr[action.id].done
+            (arr as any)[action.id].done = !(arr as any)[action.id].done
             return {
                 ...state,
                 list: arr
             }
         default:
-            return state;
+            return state
     }
 }
 
-export default Todo
+export default self_reducer

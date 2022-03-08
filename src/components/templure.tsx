@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 const scaleNames = {
     c: 'Celsius',
     f: 'Fahrenheit'
 };
+interface Boli{
+    celsius: number
+}
+interface ScalNamesList{
+    c: string,
+    f: string
+}
 
-function toCelsius(fahrenheit) {
+function toCelsius(fahrenheit:number) {
     return (fahrenheit - 32) * 5 / 9;
 }
 
-function toFahrenheit(celsius) {
+function toFahrenheit(celsius:number) {
     return (celsius * 9 / 5) + 32;
 }
 
-function tryConvert(temperature, convert) {
+function tryConvert(temperature:string, convert:any) {
     const input = parseFloat(temperature);
     if (Number.isNaN(input)) {
         return '';
@@ -22,20 +29,29 @@ function tryConvert(temperature, convert) {
     return rounded.toString();
 }
 
-function BoilingVerdict(props) {
+function BoilingVerdict(props:Boli) {
     if (props.celsius >= 100) {
         return <p>The water would boil.</p>;
     }
     return <p>The water would not boil.</p>;
 }
 
-class TemperatureInput extends React.Component {
-    constructor(props) {
+interface Myprops{
+    scale: string,
+    temperature: string,
+    onTemperatureChange: (x:any) => void
+}
+interface Mystate{
+
+}
+
+class TemperatureInput extends React.Component<Myprops, Mystate> {
+    constructor(props:Myprops) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(e) {
+    handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         this.props.onTemperatureChange(e.target.value);
     }
 
@@ -44,27 +60,32 @@ class TemperatureInput extends React.Component {
         const scale = this.props.scale;
         return (
             <fieldset>
-                <legend>Enter temperature in {scaleNames[scale]}:</legend>
+                <legend>Enter temperature in {(scaleNames as any)[scale]}:</legend>
                 <input value={temperature}
-                    onChange={this.handleChange} />
+                    onChange={(e) => this.handleChange(e)} />
             </fieldset>
         );
     }
 }
+interface Cprops{}
+interface Cstate{
+    scale: string,
+    temperature: string
+}
 
-export default class Calculator extends React.Component {
-    constructor(props) {
+export default class Calculator extends React.Component<Cprops, Cstate> {
+    constructor(props: Cprops) {
         super(props);
         this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
         this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
         this.state = { temperature: '', scale: 'c' };
     }
 
-    handleCelsiusChange(temperature) {
+    handleCelsiusChange(temperature:string) {
         this.setState({ scale: 'c', temperature });
     }
 
-    handleFahrenheitChange(temperature) {
+    handleFahrenheitChange(temperature:string) {
         this.setState({ scale: 'f', temperature });
     }
 

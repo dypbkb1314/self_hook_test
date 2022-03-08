@@ -1,17 +1,10 @@
+import React from 'react'
+import { lazy } from 'react';
 
-// import { lazy } from 'react';
-// const List from import('../components/list'));
-// const Info from import('../components/info'));
-// const AntdTest from import('../components/antd_test'));
-// const Home from import('../App'));
-// const Calculator from import('../components/templure'));
-// const ThemeTest from import('../components/theme-app'));
-// const Login from import('../components/index'));
-
-import List from '../components/list'
-import Info from '../components/info'
-import AntdTest from '../components/antd_test'
-import Home from '../App'
+// import List from '../components/list'
+// import Info from '../components/info'
+// import AntdTest from '../components/antd_test'
+// import Home from '../App'
 import Calculator from '../components/templure'
 import ThemeTest from '../components/theme-app'
 import Login from '../components/index'
@@ -19,6 +12,11 @@ import MousePage from '../components/mousepage'
 import BgTest from '../components/bg-test'
 import TodoList from '../components/todolist'
 import RouterTest from '../components/router-test'
+
+const List = lazy(() => import('../components/list'));
+const Info = lazy(() => import('../components/info'));
+const AntdTest = lazy(() => import('../components/antd_test'));
+const Home = lazy(() => import('../App'));
 
 const NotFound = () => {
     return (

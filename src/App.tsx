@@ -7,57 +7,75 @@ import PropTypes from 'prop-types'
 import { UseContext } from './index';
 import './test.css';
 import Selef from './self';
-import api from './api'
+import api from './api';
+
+interface SelfAppDate{
+    name: string,
+    surname: string,
+    age: number,
+    gifts:[]
+}
+
+interface SelfSelect{
+    count: number
+}
+
+interface SelfDataGet{
+    name: string,
+    message: string
+}
 
 function App() {
     const history = useHistory();
     console.log(history)
     const dispatch = useDispatch()
-    let dared = useSelector(state => state.count)
+    let dared = useSelector((state:SelfSelect) => state.count)
     const name = useHandleName('Harry');
     const surname = useHandleName('Potter');
     const width = useWindowWidth();
     const context_info = useContext(UseContext)
-    const [selfData, setPost] = useState()
-    const [selfDataGet, setGet] = useState()
-    const [nodeList, setNodeList] = useState()
-    const [idFromBtnClick, setIdFromBtnClick] = useState('1')
+    const [selfData, setPost] = useState<SelfAppDate>({name: '', surname: '', age: 1, gifts: []})
+    const [selfDataGet, setGet] = useState<SelfDataGet>({name: '', message: ''})
+    const [nodeList, setNodeList] = useState([])
+    const [idFromBtnClick, setIdFromBtnClick] = useState<number>(1)
     useDocumentTitle(name.value + ' ' + surname.value);
-    const inptref = useRef(null)
-    let textref = useRef(null)
-    
+    const inptref = useRef<HTMLInputElement>(null)
+    let textref = useRef<HTMLDivElement>(null)
+
+    async function getApi() {
+        try {
+            const res = await api.getApi();
+            console.log(res)
+            setPost(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    async function getApiMd() {
+        try {
+            const res = await api.getApiMd(idFromBtnClick);
+            setGet(res)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    async function testproxy() {
+        try {
+            const res = await api.testproxy();
+            console.log(res)
+        } catch (e) {
+            console.log(e)
+        }
+    }
     // console.log(textref.current.innerWidth, textref.current.offsetWidth, textref.current.clientWidth)
     useEffect(() => {
         if (idFromBtnClick === 2) {
-            async function getApi() {
-                try {
-                    const res = await api.getApi();
-                    console.log(res)
-                    setPost(res.data)
-                } catch (e) {
-                    console.log(e)
-                }
-            }
             getApi()
         } else if (idFromBtnClick === 3) {
-            async function getApiMd() {
-                try {
-                    const res = await api.getApiMd(idFromBtnClick);
-                    setGet(res)
-                } catch (e) {
-                    console.log(e)
-                }
-            }
+            
             getApiMd()
         }else if(idFromBtnClick === 4){
-            async function testproxy() {
-                try {
-                    const res = await api.testproxy();
-                    console.log(res)
-                } catch (e) {
-                    console.log(e)
-                }
-            }
+            
             testproxy()
         }
     }, [idFromBtnClick])
@@ -72,23 +90,27 @@ function App() {
     }
 
     function focux(){
-        inptref.current.focus()
+        if(inptref.current){
+            inptref.current.focus()
+        }
     }
 
-    function printWidth(e){
+    function printWidth(){
         const sg = textref.current;
-        console.log('offsetwidth', sg.offsetWidth)
-        console.log('clientwidth', sg.clientWidth)
-        console.log('scrollwidth', sg.scrollWidth)
-        console.log('scrolly', sg.scrollTop)
+        if(sg){
+            console.log('offsetwidth', sg.offsetWidth)
+            console.log('clientwidth', sg.clientWidth)
+            console.log('scrollwidth', sg.scrollWidth)
+            console.log('scrolly', sg.scrollTop)
+        }
     }
 
     return (
         <div className="box">
             <Selef/>
             <span><a href="#">rfgt</a></span>
-            <input {...name} />
-            <input {...surname} />
+            <input {...name} readOnly/>
+            <input {...surname} readOnly/>
             <span>{width}</span>
             {/* <span>{love}</span> */}
             <div className='b'>
@@ -98,7 +120,7 @@ function App() {
                 <div className='aa'></div>
             </div>
             <button onClick={() => dispatch({type: "ADD", value: 3})}>redux count</button>
-            <button onClick={() => dispatch({type: "CHANGE"})}>redux name</button>
+            <button onClick={() => dispatch({type: "CHANGE", value: "hello Jk"})}>redux name</button>
             <span>{dared}</span>
             {React.createElement("h1", null, "this is react element")}
             {
@@ -170,20 +192,16 @@ function useWindowWidth() {
     return width;
 }
 
-function useDocumentTitle(title) {
+function useDocumentTitle(title:string) {
     useEffect(() => {
         document.title = title
     })
 }
 
-function useHandleName(initName) {
+function useHandleName(initName: string) {
     const [value, setValue] = useState(initName)
-    function onChangeValue(e) {
-        setValue(e.target.value)
-    }
     return {
         value,
-        onChange: onChangeValue,
     }
 }
 

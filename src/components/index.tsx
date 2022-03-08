@@ -7,12 +7,6 @@ function Login (){
 
     const history = useHistory();
 
-    const handleChangeUserName = (e) =>{
-        setUsername(e.target.value)
-    }
-    const handleChangePassWord = (e) =>{
-        setPassword(e.target.value)
-    }
 
     const handleLogin =() =>{
         if(username === 'harry' && password === '999'){
@@ -28,10 +22,10 @@ function Login (){
     return(
         <div>
             <div>
-                username: <input type="text" onChange={handleChangeUserName} value={username} />
+                username: <input type="text" onChange={(e) => setUsername(e.target.value)} value={username} />
             </div>
             <div>
-                password: <input type="password" onChange={handleChangePassWord} value={password} />
+                password: <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
             </div>
             <button onClick={handleLogin}>login</button>
         </div>

@@ -73,7 +73,7 @@ export default function RouteConfigExample() {
     );
 }
 
-function Tacos({ routes }) {
+function Tacos() {
     return (
         <div>
             <h2>Tacos</h2>
@@ -107,14 +107,14 @@ function Tacos({ routes }) {
 // A special wrapper for <Route> that knows how to
 // handle "sub"-routes by passing them in a `routes`
 // prop to the component it renders.
-function RouteWithSubRoutes(route) {
-    return (
-        <Route
-            path={route.path}
-            render={props => {console.log(route);return (
-                // pass the sub-routes down to keep nesting
-                <route.component {...props} routes={route.routes} />
-            )}}
-        />
-    );
-}
+// function RouteWithSubRoutes(route) {
+//     return (
+//         <Route
+//             path={route.path}
+//             render={props => {console.log(route);return (
+//                 // pass the sub-routes down to keep nesting
+//                 <route.component {...props} routes={route.routes} />
+//             )}}
+//         />
+//     );
+// }
