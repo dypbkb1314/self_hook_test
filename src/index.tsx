@@ -25,6 +25,7 @@ const store: Store<selfState, selfAction> = createStore(reducer);
 // axios.defaults.baseURL = 'https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7';
 axios.defaults.baseURL = "http://localhost:8888";
 axios.defaults.headers.get["Access-Control-Allow-Origin"] = "*";
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.headers.common["Authorization"] = "tokendsfsd98sdf78dsf52ds4f545ds";
 // axios.defaults.headers.common['Authorization'] = 'token' + JSON.stringify(localStorage.getItem('loginStatus'));
 

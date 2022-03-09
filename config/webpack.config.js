@@ -33,6 +33,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const appPackageJson = require(paths.appPackageJson);
 
+const MyWebpackPlugin = require('./testplugin')
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
@@ -562,6 +564,9 @@ module.exports = function (webpackEnv) {
       new BundleAnalyzerPlugin({
         analyzerPort: 8889, // 指定端口号
         openAnalyzer: false,
+      }),
+      new MyWebpackPlugin({
+        param:'paramValue'
       }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(

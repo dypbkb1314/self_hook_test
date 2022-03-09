@@ -15,6 +15,7 @@ import RouterTest from '../components/router-test'
 
 const List = lazy(() => import('../components/list'));
 const Info = lazy(() => import('../components/info'));
+const Echarts = lazy(() => import('../components/echarts'));
 const AntdTest = lazy(() => import('../components/antd_test'));
 const Home = lazy(() => import('../App'));
 
@@ -63,7 +64,7 @@ const RouterConfig = [
     {
         path: '/theme',
         component: ThemeTest,
-        auth: true
+        auth: false
     },
     {
         path: '/info',
@@ -88,6 +89,11 @@ const RouterConfig = [
     {
         path: '/bg-test',
         component: BgTest,
+        auth: false
+    },
+    {
+        path: '/echarts',
+        component: Echarts,
         auth: false
     },
     {

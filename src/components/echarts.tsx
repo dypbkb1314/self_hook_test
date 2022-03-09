@@ -1,0 +1,44 @@
+import React from 'react';
+import * as echarts from 'echarts';
+import './echarts.css'
+
+type P = {
+    
+};
+
+type S = {
+    
+};
+
+class Echarts extends React.Component<P, S> {
+    state = {  }
+    componentDidMount(){
+        var echg:any = document.getElementById('echarts');
+        var myChart:any = echarts.init(echg);
+        // 绘制图表
+        myChart.setOption({
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        xAxis: {
+            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [
+            {
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }
+        ]
+        });
+    }
+    render() {
+        return (
+            <div id="echarts" className='echarts'></div>
+        );
+    }
+}
+
+export default Echarts;

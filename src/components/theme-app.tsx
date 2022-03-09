@@ -19,12 +19,11 @@ interface toobar{
 }
 
 // 一个使用 ThemedButton 的中间组件
-function Toolbar(props: any) {
+function Toolbar(props:any) {
   return (
-    // <ThemedButton onClick={props.changeTheme}>
-    //   Change Theme
-    // </ThemedButton>
-    <div></div>
+    <ThemedButton onToggle={props.changeTheme}>
+      Change Theme
+    </ThemedButton>
   );
 }
 
@@ -50,9 +49,8 @@ export default class ThemeTestApp extends React.Component<IselfProps, IselfState
     return (
       <div>
         <ThemeContext.Provider value={this.state.theme}>
-          <Toolbar changeTheme={() => this.toggleTheme} />
+          <Toolbar changeTheme={this.toggleTheme} />
         </ThemeContext.Provider>
-          <ThemedButton />
       </div>
     );
   }

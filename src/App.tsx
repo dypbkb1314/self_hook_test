@@ -8,6 +8,7 @@ import { UseContext } from './index';
 import './test.css';
 import Selef from './self';
 import api from './api';
+import {ThemeContext} from './components/theme-context';
 
 interface SelfAppDate{
     name: string,
@@ -27,7 +28,6 @@ interface SelfDataGet{
 
 function App() {
     const history = useHistory();
-    console.log(history)
     const dispatch = useDispatch()
     let dared = useSelector((state:SelfSelect) => state.count)
     const name = useHandleName('Harry');
@@ -40,7 +40,9 @@ function App() {
     const [idFromBtnClick, setIdFromBtnClick] = useState<number>(1)
     useDocumentTitle(name.value + ' ' + surname.value);
     const inptref = useRef<HTMLInputElement>(null)
-    let textref = useRef<HTMLDivElement>(null)
+    let textref = useRef<HTMLDivElement>(null);
+    const valuedd = useContext(ThemeContext);
+    console.log(valuedd)
 
     async function getApi() {
         try {

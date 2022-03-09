@@ -40,7 +40,7 @@ router.get('/_api/name', function (ctx, next) {
   const sid = (Math.random() * 9999999).toFixed()
   ctx.cookies.set(`${sessionKey}`, `${sid}`, {
     maxAge: 10 * 60 * 1000, // cookie有效时长
-    expires: new Date('2021-06-15'),  // cookie失效时间
+    expires: new Date('2022-06-15'),  // cookie失效时间
     httpOnly: false,  // 是否只用于http请求中获取
     overwrite: false  // 是否允许重写
   })
