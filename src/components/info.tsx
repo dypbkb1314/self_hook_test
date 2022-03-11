@@ -1,7 +1,16 @@
 import React, { useState, useEffect,useMemo, useCallback } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { useStore, useSelector } from 'react-redux';
-import Hoc from './hoc'
+import Hoc from './hoc';
+
+const ChildMemo = ({id}:{id: number}) => {
+    console.log('child');
+    return (
+        <div>Child Test Memo {id}</div>
+    )
+}
+
+const ChildMemoEle = React.memo(ChildMemo);
 
 const listInfo = {
     name: 'Gty',
@@ -27,7 +36,8 @@ function Info() {
     const id = history && history.location && history.location.state.id;
     const  testMemo = useCallback(() => goBack(), [ti])
     function goBack() {
-        history.push('/list')
+        // history.push('/list')
+        window.location.reload()
     }
     useEffect(() => {
         return () => { }
@@ -63,6 +73,7 @@ function Info() {
                     <li>难以释怀</li>
                 </ul>
             </Hoc>
+            <ChildMemoEle id={ti} />
         </div>
     )
 }
@@ -70,5 +81,7 @@ function Info() {
 function useChangeTest(inId:number) {
     return inId;
 }
+
+
 
 export default Info;

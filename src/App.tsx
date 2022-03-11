@@ -14,7 +14,7 @@ interface SelfAppDate{
     name: string,
     surname: string,
     age: number,
-    gifts:[]
+    gifts:Array<string>
 }
 
 interface SelfSelect{
@@ -42,24 +42,50 @@ function App() {
     const inptref = useRef<HTMLInputElement>(null)
     let textref = useRef<HTMLDivElement>(null);
     const valuedd = useContext(ThemeContext);
-    console.log(valuedd)
+    const [mv, setMv] = useState(0);
+    var ajaxObj:any;
+    const {changeObj, testObj} = useChangeObj();
+
+    const computedMemoVal = function(data:number){
+        console.log(data)
+    }
+
+    const changeVal = function(){
+        // setMv(mv+1)
+        api.cancel()
+    }
+
+    const memoVal = React.useMemo(() => computedMemoVal(mv), [mv])
 
     async function getApi() {
         try {
             const res = await api.getApi();
-            console.log(res)
             setPost(res.data)
         } catch (e) {
             console.log(e)
         }
     }
-    async function getApiMd() {
+    async function getApiMd(id:number) {
         try {
-            const res = await api.getApiMd(idFromBtnClick);
+            const res = await api.getApiMd(id);
             setGet(res)
         } catch (e) {
             console.log(e)
         }
+        // var ajaxobj;
+        // ajaxObj = new XMLHttpRequest();
+        // ajaxObj.open('get', 'https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7/user/api/self/2');
+        // ajaxObj.send();
+        // ajaxObj.onreadystatechange = function () {
+        //     // 为了保证 数据 完整返回，我们一般会判断 两个值
+        //     if (ajaxObj.readyState == 4 && ajaxObj.status == 200) {
+        //         // 如果能够进到这个判断 说明 数据 完美的回来了,并且请求的页面是存在的
+        //         // 5.在注册的事件中 获取 返回的 内容 并修改页面的显示
+        //         console.log('数据返回成功');
+        //         // 数据是保存在 异步对象的 属性中
+        //         console.log(ajaxObj.responseText);
+        //     }
+        // }
     }
     async function testproxy() {
         try {
@@ -69,18 +95,6 @@ function App() {
             console.log(e)
         }
     }
-    // console.log(textref.current.innerWidth, textref.current.offsetWidth, textref.current.clientWidth)
-    useEffect(() => {
-        if (idFromBtnClick === 2) {
-            getApi()
-        } else if (idFromBtnClick === 3) {
-            
-            getApiMd()
-        }else if(idFromBtnClick === 4){
-            
-            testproxy()
-        }
-    }, [idFromBtnClick])
 
     async function getList(){
         try{
@@ -91,7 +105,7 @@ function App() {
         }
     }
 
-    function focux(){
+    function focus(){
         if(inptref.current){
             inptref.current.focus()
         }
@@ -110,11 +124,13 @@ function App() {
     return (
         <div className="box">
             <Selef/>
+            <p>{`${testObj.name} ${testObj.surname} is ${testObj.age}`}</p>
+            <button onClick={() => changeObj()} >change obj</button>
             <span><a href="#">rfgt</a></span>
             <input {...name} readOnly/>
             <input {...surname} readOnly/>
             <span>{width}</span>
-            {/* <span>{love}</span> */}
+            <button onClick={() => changeVal()}>set memo val</button>
             <div className='b'>
                 <div className='aa'></div>
                 <div className='aa'></div>
@@ -163,14 +179,13 @@ function App() {
                     </ul>
                 ): null
             }
-            {/* testproxy */}
             <div ref={textref} className="textbox"></div>
             <input type="text" ref={inptref}/>
-            <button onClick={focux}>ref test</button>
+            <button onClick={focus}>ref test</button>
             <button onClick={printWidth}>test width</button>
-            <button onClick={() => {setIdFromBtnClick(2)}}>接口测试post</button>
-            <button onClick={() => {setIdFromBtnClick(3)}}>接口测试get</button>
-            <button onClick={() => {setIdFromBtnClick(4)}}>接口测试proxy</button>
+            <button onClick={() => {getApiMd(2)}}>接口测试post</button>
+            <button onClick={() => {getApi()}}>接口测试get</button>
+            <button onClick={() => {testproxy()}}>接口测试proxy</button>
             <button onClick={() => history.push('/list')}>go list</button>
             <button onClick={getList}>get List btn</button>
             <button onClick={() => history.push('/antdTest')}>got antd</button>
@@ -181,6 +196,20 @@ function App() {
     )
 }
 
+function useChangeObj(){
+    const [testObj, setTestObj] = useState<SelfAppDate>({name: 'Harry', surname: 'Potter', age: 18, gifts: ['gift1']})
+    let changeObj  = function(){
+        setTestObj({
+            ...testObj,
+            age: Math.floor(Math.random() * 100)
+        });
+    }
+    
+    return {
+        testObj,
+        changeObj
+    };
+}
 
 function useWindowWidth() {
     const [width, setWidth] = useState(window.innerWidth);

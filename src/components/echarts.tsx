@@ -13,7 +13,7 @@ type S = {
 class Echarts extends React.Component<P, S> {
     state = {  }
     componentDidMount(){
-        var echg:any = document.getElementById('echarts');
+        var echg:HTMLElement = document.getElementById('echarts') as HTMLElement;
         var myChart:any = echarts.init(echg);
         // 绘制图表
         myChart.setOption({
