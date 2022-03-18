@@ -22,65 +22,75 @@
 //     console.log(`server is starting ${port}`)
 // })
 
-const Koa = require('koa');
-const Router = require('koa-router');
-const cors = require('@koa/cors');
-const json = require('koa-json')
+const Koa = require("koa");
+const Router = require("koa-router");
+const cors = require("@koa/cors");
+const json = require("koa-json");
+const mysql = require("mysql");
+const bodyParser = require('koa-bodyparser')
 
 const app = new Koa();
 const router = new Router();
-app.use(cors())
-router.get('/_api/test', function (ctx, next) {
+
+app.use(cors());
+app.use(bodyParser());
+app.use(json());
+app.use(router.routes()).use(router.allowedMethods());
+
+router.get("/_api/test", function (ctx, next) {
   // ctx.router available
-  ctx.body = 'ddd'
+  ctx.body = "ddd";
 });
-router.get('/_api/name', function (ctx, next) {
+router.get("/_api/name", function (ctx, next) {
+  console.log(next)
+  console.log(ctx.request.query.id)
   // ctx.router available
-  const sessionKey = 'sid'
-  const sid = (Math.random() * 9999999).toFixed()
+  const sessionKey = "sid";
+  const sid = (Math.random() * 9999999).toFixed();
   ctx.cookies.set(`${sessionKey}`, `${sid}`, {
     maxAge: 10 * 60 * 1000, // cookie有效时长
-    expires: new Date('2022-06-15'),  // cookie失效时间
-    httpOnly: false,  // 是否只用于http请求中获取
-    overwrite: false  // 是否允许重写
-  })
+    expires: new Date("2022-06-15"), // cookie失效时间
+    httpOnly: false, // 是否只用于http请求中获取
+    overwrite: false, // 是否允许重写
+  });
   ctx.body = {
     code: 1,
-    name: 'kl'
-  }
+    name: "kl",
+  };
+  next(()=>{
+    return new Promise(res => res(2))
+  })
+});
+router.post("/_api/sql", function (ctx, next) {
+  var connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "123456aaa",
+    port: "3306",
+    database: "react_login",
+  });
+
+  connection.connect();
+
+  var addSql = "INSERT INTO users(id,username,password,created_at,updated_at) VALUES(0,?,?,?,?)";
+  var addSqlParams = 
+    ["李21", "8d8d9ddsfs8a", "2022-01-07 11:20:00", "2022-04-01 11:20:00"];
+  //增
+  connection.query(addSql, addSqlParams, function (err, result) {
+    if (err) {
+      console.log("[INSERT ERROR] - ", err.message);
+      return;
+    }
+    console.log("--------------------------INSERT----------------------------");
+    console.log("INSERT ID:", result);
+    console.log("------------------------------------------------------------\n\n");
+  });
+
+  connection.end();
+  ctx.body = {
+    code: 1,
+    message: 'success'
+  };
 });
 
-app.use(json());
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
-
-app.listen(8888, () => console.log('listening 8888'))
-
-
-// const assert = require('assert').strict;
-// assert.notEqual(123,123)
-
-// const readline = require('readline').createInterface({
-//   input: process.stdin,
-//   output: process.stdout
-// })
-
-// readline.question(`你叫什么名字?`, name => {
-//   console.log(`你好 ${name}!`)
-//   readline.close()
-// })
-
-// const inquirer = require('inquirer')
-
-// var questions = [
-//   {
-//     type: 'input',
-//     name: 'name',
-//     message: "你叫什么名字?"
-//   }
-// ]
-
-// inquirer.prompt(questions).then(answers => {
-//   console.log(`你好 ${answers['name']}!`)
-// })
+app.listen(8888, () => console.log("listening 8888"));

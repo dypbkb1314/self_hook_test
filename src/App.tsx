@@ -96,6 +96,15 @@ function App() {
         }
     }
 
+    async function testsql() {
+        try {
+            const res = await api.testsql();
+            console.log(res)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     async function getList(){
         try{
             await axios.get('/_api/name');
@@ -186,6 +195,7 @@ function App() {
             <button onClick={() => {getApiMd(2)}}>接口测试post</button>
             <button onClick={() => {getApi()}}>接口测试get</button>
             <button onClick={() => {testproxy()}}>接口测试proxy</button>
+            <button onClick={() => {testsql()}}>接口测试sql</button>
             <button onClick={() => history.push('/list')}>go list</button>
             <button onClick={getList}>get List btn</button>
             <button onClick={() => history.push('/antdTest')}>got antd</button>

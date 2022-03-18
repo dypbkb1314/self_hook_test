@@ -49,19 +49,29 @@ function cancel(){
 
 async function testproxy(){
     try{
-        const res = await axios.get('/_api/name');
+        let testGet = 'fff'
+        const res = await axios.get(`/_api/name?id=${testGet}`);
         return res;
     }catch(e){
         console.log(e)
     }
 }
 
+async function testsql(){
+    try{
+        const res = await axios.post('/_api/sql', {name: 'ddd', password: 'dsfsd4sf45ds54'});
+        return res;
+    }catch(e){
+        console.log(e)
+    }
+}
 
 const apiList ={
     getApi,
     getApiMd,
     testproxy,
-    cancel
+    cancel,
+    testsql
 }
 
 export default apiList;
