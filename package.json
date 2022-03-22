@@ -30,6 +30,7 @@
     "camelcase": "^6.1.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "compression-webpack-plugin": "^9.2.0",
+    "cross-env": "^7.0.3",
     "css-loader": "4.3.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
@@ -96,7 +97,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "ssr": "node server/index",
+    "ssr": "cross-env NODE_ENV=development node server/index",
+    "pro": "cross-env NODE_ENV=production node server",
     "flow": "flow"
   },
   "eslintConfig": {

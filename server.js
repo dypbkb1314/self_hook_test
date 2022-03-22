@@ -3,6 +3,8 @@ const path = require('path');
 const port = process.env.PORT || 8080;
 const app = express();
 
+console.log(process.env.NODE_ENV)
+
 //加载指定目录静态资源
 app.use(express.static(__dirname + '/build'))
 

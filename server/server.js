@@ -32,6 +32,8 @@ const bodyParser = require('koa-bodyparser')
 const app = new Koa();
 const router = new Router();
 
+console.log(process.env.NODE_ENV)
+
 app.use(cors());
 app.use(bodyParser());
 app.use(json());

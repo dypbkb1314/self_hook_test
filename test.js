@@ -11,8 +11,9 @@
 
 
 // window.onscroll = function(params) {
-//     var topI = a.getBoundingClientRect().top
-//     var heightI = a.getBoundingClientRect().height
+//     var topI = a.getBoundingClientRect().top;
+//     var heightI = a.getBoundingClientRect().height;
+//     var gh = window.innerHeight;
 //     if(topI < 0){
 //         console.log('正在离开')
 //     }else if(topI + heightI < gh){
