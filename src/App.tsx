@@ -9,22 +9,9 @@ import './test.css';
 import Selef from './self';
 import api from './api';
 import {ThemeContext} from './components/theme-context';
-
-interface SelfAppDate{
-    name: string,
-    surname: string,
-    age: number,
-    gifts:Array<string>
-}
-
-interface SelfSelect{
-    count: number
-}
-
-interface SelfDataGet{
-    name: string,
-    message: string
-}
+import { SelfAppDate } from './SelfAppDate';
+import { SelfSelect } from './SelfSelect';
+import { SelfDataGet } from './SelfDataGet';
 
 function App() {
     const history = useHistory();
@@ -47,18 +34,18 @@ function App() {
     console.log(valuedd, context_info)
     const {changeObj, testObj} = useChangeObj();
 
-    const computedMemoVal = function(data:number){
-        console.log(data)
+    function computedMemoVal({ data }: { data: number; }): void {
+        console.log(data);
     }
 
-    const changeVal = function(){
+    function changeVal(): void {
         // setMv(mv+1)
-        api.cancel()
+        api.cancel();
     }
 
-    const memoVal = React.useMemo(() => computedMemoVal(mv), [mv])
+    const memoVal = React.useMemo(() => computedMemoVal({ data: mv }), [mv])
 
-    async function getApi() {
+    async function getApi(): Promise<void> {
         try {
             const res = await api.getApi();
             setPost(res.data)
@@ -66,7 +53,7 @@ function App() {
             console.log(e)
         }
     }
-    async function getApiMd(id:number) {
+    async function getApiMd({ id }: { id: number; }): Promise<void> {
         try {
             const res = await api.getApiMd(id);
             setGet(res)
@@ -88,7 +75,7 @@ function App() {
         //     }
         // }
     }
-    async function testproxy() {
+    async function testproxy(): Promise<void> {
         try {
             const res = await api.testproxy();
             console.log(res)
@@ -97,7 +84,7 @@ function App() {
         }
     }
 
-    async function testsql() {
+    async function testsql(): Promise<void> {
         try {
             const res = await api.testsql();
             console.log(res)
@@ -106,7 +93,7 @@ function App() {
         }
     }
 
-    async function getList(){
+    async function getList(): Promise<void>{
         try{
             await axios.get('/_api/name');
         }catch(e){
@@ -115,21 +102,21 @@ function App() {
         }
     }
 
-    function focus(){
+    function focus(): void{
         if(inptref.current){
             inptref.current.focus()
         }
     }
 
-    function testSagaLatest(){
+    function testSagaLatest(): void{
         dispatch({type: "USER_TEST_LATEST", value: "hello latest 1"})
     }
 
-    function testSagaEvery(){
+    function testSagaEvery(): void{
         dispatch({type: "USER_TEST_EVERY", value: "hello everyt 1"})
     }
 
-    function printWidth(){
+    function printWidth(): void{
         const sg = textref.current;
         if(sg){
             console.log('offsetwidth', sg.offsetWidth)
@@ -204,7 +191,7 @@ function App() {
             <input type="text" ref={inptref}/>
             <button onClick={focus}>ref test</button>
             <button onClick={printWidth}>test width</button>
-            <button onClick={() => {getApiMd(2)}}>接口测试post</button>
+            <button onClick={() => {getApiMd({ id: 2 })}}>接口测试post</button>
             <button onClick={() => {getApi()}}>接口测试get</button>
             <button onClick={() => {testproxy()}}>接口测试proxy</button>
             <button onClick={() => {testsql()}}>接口测试sql</button>
