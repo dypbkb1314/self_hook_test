@@ -9,7 +9,8 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, Store } from "redux";
+import { createStore, Store, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga'
 import axios from "axios";
 import "./index.css";
 import "antd/dist/antd.css";
@@ -18,8 +19,8 @@ import AuthRouter from "./auth/FrontendAuth";
 import { BrowserRouter, Switch } from "react-router-dom";
 import "antd-mobile/dist/antd-mobile";
 import { selfState, selfAction } from "./reducer";
+import saga from "./saga";
 import "./setProxy";
-const store: Store<selfState, selfAction> = createStore(reducer);
 // import reportWebVitals from './reportWebVitals';
 
 // axios.defaults.baseURL = 'https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7';
@@ -37,11 +38,18 @@ const htk = {
 export const UseContext = React.createContext(htk);
 
 const renderFuc = ReactDOM.render;
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store: Store<selfState, selfAction> = createStore(reducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(saga);
+
 // const renderFuc = module.hot ? ReactDOM.render : ReactDOM.hydrate;
 renderFuc(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <UseContext.Provider value={htk}> */}
+      <UseContext.Provider value={htk}>
       {/* <Router /> */}
       <Suspense fallback={<p>loading......</p>}>
         <BrowserRouter>
@@ -52,7 +60,7 @@ renderFuc(
           </Switch>
         </BrowserRouter>
       </Suspense>
-      {/* </UseContext.Provider> */}
+      </UseContext.Provider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

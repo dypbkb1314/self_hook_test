@@ -44,6 +44,7 @@ function App() {
     const valuedd = useContext(ThemeContext);
     const [mv, setMv] = useState(0);
     var ajaxObj:any;
+    console.log(valuedd, context_info)
     const {changeObj, testObj} = useChangeObj();
 
     const computedMemoVal = function(data:number){
@@ -120,6 +121,14 @@ function App() {
         }
     }
 
+    function testSagaLatest(){
+        dispatch({type: "USER_TEST_LATEST", value: "hello latest 1"})
+    }
+
+    function testSagaEvery(){
+        dispatch({type: "USER_TEST_EVERY", value: "hello everyt 1"})
+    }
+
     function printWidth(){
         const sg = textref.current;
         if(sg){
@@ -148,6 +157,9 @@ function App() {
             </div>
             <button onClick={() => dispatch({type: "ADD", value: 3})}>redux count</button>
             <button onClick={() => dispatch({type: "CHANGE", value: "hello Jk"})}>redux name</button>
+            <button onClick={() => testSagaLatest()}>redux sage latest</button>
+            <button onClick={() => testSagaEvery()}>redux saga every</button>
+            {/* USER_TEST_LATEST */}
             <span>{dared}</span>
             {React.createElement("h1", null, "this is react element")}
             {

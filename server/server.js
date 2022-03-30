@@ -28,6 +28,7 @@ const cors = require("@koa/cors");
 const json = require("koa-json");
 const mysql = require("mysql");
 const bodyParser = require('koa-bodyparser')
+const crypto = require('crypto');
 
 const app = new Koa();
 const router = new Router();
