@@ -1,0 +1,3 @@
+interface ActionG {
+    message: string;
+}

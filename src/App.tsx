@@ -100,8 +100,8 @@ function App() {
             console.log(e)
             console.log(e)
         }
+        
     }
-
     function focus(): void{
         if(inptref.current){
             inptref.current.focus()
@@ -113,7 +113,8 @@ function App() {
     }
 
     function testSagaEvery(): void{
-        dispatch({type: "USER_TEST_EVERY", value: "hello everyt 1"})
+        const newLocal = "USER_TEST_EVERY";
+        dispatch({type: newLocal, value: "hello everyt 1"})
     }
 
     function printWidth(): void{

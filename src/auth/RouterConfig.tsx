@@ -1,10 +1,6 @@
 import React from 'react'
 import { lazy } from 'react';
 
-// import List from '../components/list'
-// import Info from '../components/info'
-// import AntdTest from '../components/antd_test'
-// import Home from '../App'
 import Calculator from '../components/templure'
 import ThemeTest from '../components/theme-app'
 import Login from '../components/index'

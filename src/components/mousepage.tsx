@@ -19,7 +19,7 @@ export default class MouseTracker extends React.Component<{},MyState> {
     }
 
     adf() {
-      const portalDiv = document.getElementById('kl'); 
+      const portalDiv = document.getElementById('jk');
       if(portalDiv){
         html2canvas(portalDiv, {
           allowTaint: false,
@@ -38,7 +38,7 @@ export default class MouseTracker extends React.Component<{},MyState> {
   
     render() {
       return (
-        <div style={{ height: '100vh' }} onMouseMove={(event) => this.setState({x: event.clientX,y: event.clientY})}>
+        <div id='jk' style={{ height: '100vh' }} onMouseMove={(event) => this.setState({x: event.clientX,y: event.clientY})}>
           <h1 id="kl">移动鼠标!</h1>
           <button onClick={() => this.adf()}>pic</button>
           <p>当前的鼠标位置是 ({this.state.x}, {this.state.y})</p>
