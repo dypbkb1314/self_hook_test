@@ -1,29 +1,52 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
+
+const Button = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid palevioletred;
+  color: palevioletred;
+  margin: 0.5em 1em;
+  padding: 0.25em 1em;
+  cursor: pointer;
+`;
+
+const Button1 = styled.button`
+    background: aqua;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 0.5em 1em;
+    cursor: pointer;
+`
+
+const Container = styled.div`
+  text-align: center;
+`
 
 const list = [
     {
-        name: 'Asd',
+        name: 'React',
         id: 18,
         info: '11'
     },
     {
-        name: 'Sdf',
+        name: 'Vue',
         id: 19,
         info: '22'
     },
     {
-        name: 'Dfg',
+        name: 'Node',
         id: 17,
         info: '33'
     },
     {
-        name: 'Fgh',
+        name: 'JavaScript',
         id: 15,
         info: '44'
     },
     {
-        name: 'Ghj',
+        name: 'Note',
         id: 13,
         info: '55'
     },
@@ -71,7 +94,8 @@ function List() {
                     })
                 }
             </ul>
-            <button onClick={goHome}>go home</button>
+            <Button onClick={goHome}>go home</Button>
+            <Button1>Test</Button1>
         </div>
     )
 }

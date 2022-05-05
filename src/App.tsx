@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useQuery, QueryClient, QueryClientProvider } from 'react-query'
 import PropTypes from 'prop-types'
 import { UseContext } from './index';
 import './test.css';
@@ -13,6 +14,7 @@ import { SelfAppDate } from './SelfAppDate';
 import { SelfSelect } from './SelfSelect';
 import { SelfDataGet } from './SelfDataGet';
 
+const queryClient = new QueryClient();
 function App() {
     const history = useHistory();
     const dispatch = useDispatch()
@@ -34,6 +36,10 @@ function App() {
     console.log(valuedd, context_info)
     const {changeObj, testObj} = useChangeObj();
 
+    useEffect(()=>{
+        console.log(999)
+    },[dared])
+
     function computedMemoVal({ data }: { data: number; }): void {
         console.log(data);
     }
@@ -47,7 +53,7 @@ function App() {
 
     async function getApi(): Promise<void> {
         try {
-            const res = await api.getApi();
+            const res = await api.getApi(1);
             setPost(res.data)
         } catch (e) {
             console.log(e)
@@ -130,6 +136,7 @@ function App() {
     return (
         <div className="box">
             <Selef/>
+            {TestQuery(1)}
             <p>{`${testObj.name} ${testObj.surname} is ${testObj.age}`}</p>
             <button onClick={() => changeObj()} >change obj</button>
             <span><a href="#">rfgt</a></span>
@@ -244,6 +251,16 @@ function useHandleName(initName: string) {
     return {
         value,
     }
+}
+
+function TestQuery(id:number){
+    const {data} = useQuery(['featchTest', id], () => 
+        api.getApi(id)
+    )
+    console.log(data)
+    return (
+        <>Hello React-Query</>
+    )
 }
 
 App.propTypes = {

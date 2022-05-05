@@ -14,20 +14,21 @@ axios.interceptors.response.use(function(config){
     return Promise.reject(err)
 })
 
+const getApi = (id:number) => axios.post(`https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7/user/api/self?id=${id}`)
 
-async function getApi() {
-    try {
-        const res = await axios.post(`https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7/user/api/self`,{},{
-            cancelToken: new CancelToken(function executor(c) {
-                // executor 函数接收一个 cancel 函数作为参数
-                cancelFlag = c;
-            })
-        });
-        return res.data;
-    } catch (e) {
-        console.log(e)
-    }
-}
+// async function getApi() {
+//     try {
+//         const res = await axios.post(`https://www.fastmock.site/mock/33e681a4f5fdf0c95f47190f080ec3a7/user/api/self`,{},{
+//             cancelToken: new CancelToken(function executor(c) {
+//                 // executor 函数接收一个 cancel 函数作为参数
+//                 cancelFlag = c;
+//             })
+//         });
+//         return res.data;
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
 async function getApiMd(idFromBtnClick:number) {
     try {
         console.log('test')
